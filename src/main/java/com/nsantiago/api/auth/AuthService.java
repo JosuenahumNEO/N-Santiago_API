@@ -42,10 +42,8 @@ public class AuthService {
                         apellidoCompleto).trim());
         usuario.setCorreo(correo);
         usuario.setContrasena(passwordEncoder.encode(request.contrasena()));
-        if (request.wspNum() == null || request.wspNum().isBlank()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El número de WhatsApp es obligatorio");
-        }
-        usuario.setWspNum(request.wspNum().trim());
+        String wspNum = request.wspNum() == null ? "" : request.wspNum().trim();
+        usuario.setWspNum(wspNum);
         usuario.setRol("VENDEDOR");
         usuario = usuarioRepository.save(usuario);
 
